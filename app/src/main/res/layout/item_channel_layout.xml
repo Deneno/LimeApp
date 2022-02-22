@@ -5,7 +5,10 @@
     android:id="@+id/channelCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="4dp"
     android:backgroundTint="@color/greyBackground"
     app:cardCornerRadius="10dp">
 
@@ -45,7 +48,7 @@
             android:text="Первый канал"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteImage"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/channelImageCard"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,20 +67,20 @@
             android:text="Жить здорово"
             android:textColor="@color/lightGreyText"
             android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/favoriteImage"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/channelImageCard"
             app:layout_constraintTop_toBottomOf="@+id/channelName" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/favoriteImage"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_checkstar" />
+            app:srcCompat="@drawable/ic_uncheckstar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

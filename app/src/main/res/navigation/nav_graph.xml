@@ -7,8 +7,12 @@
 
     <fragment
         android:id="@+id/rootFragment"
-        android:name="com.example.limeapp.RootFragment"
-        android:label="RootFragment" />
+        android:name="com.example.limeapp.screens.root.RootFragment"
+        android:label="RootFragment" >
+        <action
+            android:id="@+id/action_rootFragment_to_tvStreamFragment"
+            app:destination="@id/tvStreamFragment" />
+    </fragment>
     <fragment
         android:id="@+id/allChannelFragment"
         android:name="com.example.limeapp.screens.all.AllChannelFragment"
@@ -16,7 +20,15 @@
         tools:layout="@layout/fragment_all_channel" />
     <fragment
         android:id="@+id/favoriteChannelFragment"
-        android:name="com.example.limeapp.screens.FavoriteChannelFragment"
+        android:name="com.example.limeapp.screens.favorite.FavoriteChannelFragment"
         android:label="fragment_favorite_channel"
         tools:layout="@layout/fragment_favorite_channel" />
+    <fragment
+        android:id="@+id/tvStreamFragment"
+        android:name="com.example.limeapp.screens.tvstream.TvStreamFragment"
+        android:label="TvStreamFragment" >
+        <action
+            android:id="@+id/action_tvStreamFragment_to_rootFragment"
+            app:destination="@id/rootFragment" />
+    </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.limeapp.screens.all
+package com.example.limeapp.screens.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +9,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.example.limeapp.screens.root.RootViewModel
-import com.example.limeapp.databinding.FragmentAllChannelBinding
+import com.example.limeapp.databinding.FragmentFavoriteChannelBinding
 
 
-class AllChannelFragment : Fragment() {
-    private lateinit var binding: FragmentAllChannelBinding
-    private lateinit var adapter: AllChannelAdapter
-    private lateinit var viewModel: AllChannelViewModel
+class FavoriteChannelFragment : Fragment() {
+    private lateinit var binding: FragmentFavoriteChannelBinding
+    private lateinit var adapter: FavoriteChannelAdapter
+    private lateinit var viewModel: FavoriteChannelViewModel
     private val dataModel: RootViewModel by activityViewModels()
     private var searchText=""
 
@@ -23,20 +23,19 @@ class AllChannelFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllChannelBinding.inflate(layoutInflater, container, false)
-        val allChannelRV = binding.allChannelRV
-        adapter = AllChannelAdapter()
-        allChannelRV.adapter = adapter
-        viewModel = ViewModelProvider(this)[AllChannelViewModel::class.java]
-        viewModel.updateChannelsFromApi()
-        viewModel.channels.observe(viewLifecycleOwner) {adapter.setList(it)}
-        dataModel.allChannelFragment = this
+        binding = FragmentFavoriteChannelBinding.inflate(layoutInflater, container, false)
+        adapter = FavoriteChannelAdapter()
+        val favoriteChannelRV = binding.favoriteChannelRV
+        favoriteChannelRV.adapter = adapter
+        viewModel = ViewModelProvider(this)[FavoriteChannelViewModel::class.java]
+        updateFragment()
+        dataModel.favoriteChannelFragment = this
         return binding.root
     }
 
     fun updateFragment() {
         dataModel.messageSearchText.observe(activity as LifecycleOwner) {searchText = it}
-        viewModel.getChannels(searchText)
+        viewModel.getFavoriteChannels(searchText)
         viewModel.channels.observe(viewLifecycleOwner) {adapter.setList(it)}
     }
 

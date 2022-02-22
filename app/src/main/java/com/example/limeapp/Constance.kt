@@ -1,5 +1,7 @@
 package com.example.limeapp
 
-lateinit var APP: MainActivity
+import com.example.limeapp.data.ChannelsRepository
+
+var REPO = ChannelsRepository()
 class Constance {
 }

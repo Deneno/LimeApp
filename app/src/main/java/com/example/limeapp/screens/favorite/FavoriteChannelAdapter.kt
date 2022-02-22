@@ -1,4 +1,4 @@
-package com.example.limeapp.screens.all
+package com.example.limeapp.screens.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,10 @@ import com.example.limeapp.R
 import com.example.limeapp.REPO
 import com.example.limeapp.databinding.ItemChannelLayoutBinding
 import com.example.limeapp.model.Channel
+import com.example.limeapp.screens.all.AllChannelFragment
 import com.squareup.picasso.Picasso
 
-class AllChannelAdapter: RecyclerView.Adapter<AllChannelAdapter.AllChannelViewHolder>() {
+class FavoriteChannelAdapter: RecyclerView.Adapter<FavoriteChannelAdapter.AllChannelViewHolder>() {
     private var channels = emptyList<Channel>()
 
     class AllChannelViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -23,16 +24,10 @@ class AllChannelAdapter: RecyclerView.Adapter<AllChannelAdapter.AllChannelViewHo
             binding.channelName.text = channel.name_ru
             binding.channelTitle.text = channel.current?.title
             Picasso.get().load(channel.image).into(binding.channelImage)
-            if (REPO.favoriteChannelIDs.contains(channel.id)) binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
-            else binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
+            binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
             binding.favoriteImage.setOnClickListener {
-                if (!REPO.favoriteChannelIDs.contains(channel.id)) {
-                    REPO.favoriteChannelIDs.add(channel.id)
-                    binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
-                } else {
-                    REPO.favoriteChannelIDs.removeAll{ it == channel.id }
-                    binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
-                }
+                binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
+                REPO.favoriteChannelIDs.removeAll{ it == channel.id }
             }
         }
     }
@@ -47,7 +42,7 @@ class AllChannelAdapter: RecyclerView.Adapter<AllChannelAdapter.AllChannelViewHo
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
             bundle.putSerializable("currentChannel", channels[position])
-            FragmentManager.findFragment<AllChannelFragment>(holder.itemView)
+            FragmentManager.findFragment<FavoriteChannelFragment>(holder.itemView)
                 .requireActivity()
                 .findNavController(R.id.nav_host)
                 .navigate(R.id.action_rootFragment_to_tvStreamFragment, bundle)
@@ -62,5 +57,4 @@ class AllChannelAdapter: RecyclerView.Adapter<AllChannelAdapter.AllChannelViewHo
         channels = list
         notifyDataSetChanged()
     }
-
 }

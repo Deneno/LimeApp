@@ -37,13 +37,14 @@
 
             <EditText
                 android:id="@+id/searchChannelText"
-
+                android:imeOptions="actionSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:autofillHints=""
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:textColor="@color/white"
                 android:hint="@string/searchHint"
                 android:inputType="textPersonName"
                 android:textColorHint="@color/greyText"

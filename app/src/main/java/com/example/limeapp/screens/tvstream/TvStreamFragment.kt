@@ -1,17 +1,17 @@
 package com.example.limeapp.screens.tvstream
 
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.example.limeapp.R
 import com.example.limeapp.databinding.FragmentTvStreamBinding
 import com.example.limeapp.model.Channel
 import com.google.android.exoplayer2.ExoPlayer
@@ -39,6 +39,15 @@ class TvStreamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requireActivity().window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            requireActivity().window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
         binding = FragmentTvStreamBinding.inflate(layoutInflater, container, false)
         val currentChannel = arguments?.getSerializable("currentChannel") as Channel
         urlStream = currentChannel.url
@@ -47,11 +56,10 @@ class TvStreamFragment : Fragment() {
             streamChannelName.text = currentChannel.name_ru
             streamChannelTitle.text = currentChannel.current?.title
         }
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        initPlayer()
         binding.backImage.setOnClickListener{
-            //APP.navController.popBackStack()
+            requireActivity().findNavController(R.id.nav_host).popBackStack()
         }
+        initPlayer()
         return binding.root
     }
 
@@ -63,6 +71,7 @@ class TvStreamFragment : Fragment() {
         exoPlayer.prepare()
         exoPlayerView = binding.exoPlayerView
         exoPlayerView.player = exoPlayer
+        exoPlayerView.useController = false
         rootLayout = binding.rootLayout
     }
 
@@ -73,9 +82,20 @@ class TvStreamFragment : Fragment() {
             .createMediaSource(MediaItem.fromUri(Uri.parse(urlStream)))
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+    /*override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         requireActivity().window.decorView.requestLayout()
+    }*/
+
+    private var playerListener = object : Player.Listener {
+
+        override fun onTrackSelectionParametersChanged(parameters: TrackSelectionParameters) {
+            super.onTrackSelectionParametersChanged(parameters)
+        }
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
+            Toast.makeText(requireContext(), "Сегодня не работает :(", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onResume() {
@@ -102,21 +122,5 @@ class TvStreamFragment : Fragment() {
         exoPlayer.stop()
         exoPlayer.clearMediaItems()
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-
-    }
-
-    private var playerListener = object : Player.Listener {
-        override fun onRenderedFirstFrame() {
-            super.onRenderedFirstFrame()
-            exoPlayerView.useController = false
-        }
-
-        override fun onTrackSelectionParametersChanged(parameters: TrackSelectionParameters) {
-            super.onTrackSelectionParametersChanged(parameters)
-        }
-        override fun onPlayerError(error: PlaybackException) {
-            super.onPlayerError(error)
-            Toast.makeText(requireContext(), "Сегодня не работает :(", Toast.LENGTH_SHORT).show()
-        }
     }
 }

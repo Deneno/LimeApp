@@ -6,14 +6,6 @@
     app:startDestination="@id/rootFragment">
 
     <fragment
-        android:id="@+id/rootFragment"
-        android:name="com.example.limeapp.screens.root.RootFragment"
-        android:label="RootFragment" >
-        <action
-            android:id="@+id/action_rootFragment_to_tvStreamFragment"
-            app:destination="@id/tvStreamFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/allChannelFragment"
         android:name="com.example.limeapp.screens.all.AllChannelFragment"
         android:label="fragment_all_channel"
@@ -30,5 +22,13 @@
         <action
             android:id="@+id/action_tvStreamFragment_to_rootFragment"
             app:destination="@id/rootFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rootFragment"
+        android:name="com.example.limeapp.screens.root.RootFragment"
+        android:label="RootFragment" >
+        <action
+            android:id="@+id/action_rootFragment_to_tvStreamFragment"
+            app:destination="@id/tvStreamFragment" />
     </fragment>
 </navigation>

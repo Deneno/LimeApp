@@ -1,4 +1,4 @@
-package com.example.limeapp.screens.tvstream
+package com.example.limeapp.screens.tvstream.forFuture
 
 import android.content.pm.ActivityInfo
 import android.net.Uri
@@ -25,7 +25,7 @@ import com.google.android.exoplayer2.util.Assertions
 import com.squareup.picasso.Picasso
 
 
-class TvStreamFragment : Fragment() {
+class TvStreamFragment2 : Fragment() /*{
     private lateinit var binding: FragmentTvStreamBinding
     private lateinit var rootLayout: ConstraintLayout
     private lateinit var exoPlayer: ExoPlayer
@@ -173,3 +173,4 @@ class TvStreamFragment : Fragment() {
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 }
+*/

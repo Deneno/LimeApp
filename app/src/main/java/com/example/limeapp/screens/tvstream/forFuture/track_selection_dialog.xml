@@ -1,0 +1,37 @@
+<text xmlns="http://www.w3.org/1999/XSL/Transform"> </text>
+
+    <!--<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/teal_700"
+        android:orientation="vertical"
+        app:cardCornerRadius="10dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/track_selection_dialog_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/track_selection_dialog_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="fill"
+                app:tabMode="fixed" />
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme" />
+
+        </androidx.viewpager.widget.ViewPager>
+
+    </androidx.cardview.widget.CardView>-->

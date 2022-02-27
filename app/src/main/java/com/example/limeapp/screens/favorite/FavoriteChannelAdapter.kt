@@ -11,7 +11,6 @@ import com.example.limeapp.R
 import com.example.limeapp.REPO
 import com.example.limeapp.databinding.ItemChannelLayoutBinding
 import com.example.limeapp.model.Channel
-import com.example.limeapp.screens.all.AllChannelFragment
 import com.squareup.picasso.Picasso
 
 class FavoriteChannelAdapter: RecyclerView.Adapter<FavoriteChannelAdapter.AllChannelViewHolder>() {

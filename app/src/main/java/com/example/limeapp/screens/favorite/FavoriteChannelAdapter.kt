@@ -23,10 +23,16 @@ class FavoriteChannelAdapter: RecyclerView.Adapter<FavoriteChannelAdapter.AllCha
             binding.channelName.text = channel.name_ru
             binding.channelTitle.text = channel.current?.title
             Picasso.get().load(channel.image).into(binding.channelImage)
-            binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
+            if (REPO.favoriteChannelIDs.contains(channel.id)) binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
+            else binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
             binding.favoriteImage.setOnClickListener {
-                binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
-                REPO.favoriteChannelIDs.removeAll{ it == channel.id }
+                if (!REPO.favoriteChannelIDs.contains(channel.id)) {
+                    REPO.favoriteChannelIDs.add(channel.id)
+                    binding.favoriteImage.setImageResource(R.drawable.ic_checkstar)
+                } else {
+                    REPO.favoriteChannelIDs.removeAll{ it == channel.id }
+                    binding.favoriteImage.setImageResource(R.drawable.ic_uncheckstar)
+                }
             }
         }
     }

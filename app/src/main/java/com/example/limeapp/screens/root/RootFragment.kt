@@ -31,6 +31,9 @@ class RootFragment : Fragment() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
         prefs = requireContext().getSharedPreferences("favoriteChannelIDs", Context.MODE_PRIVATE)
         binding = FragmentRootBinding.inflate(layoutInflater, container,false)
+        if (savedInstanceState != null ) {
+            binding.searchChannelText.setText(savedInstanceState.getString("searchSave"))
+        }
         val viewPagerAdapter = ViewPagerAdapter(requireContext() as FragmentActivity)
         binding.viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager){
@@ -67,5 +70,10 @@ class RootFragment : Fragment() {
             REPO.favoriteChannelIDs.clear()
             REPO.favoriteChannelIDs.addAll(prefs.getStringSet("favoriteChannelIDs", HashSet<String>())!!.map { it.toInt() })
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("searchSave", binding.searchChannelText.text.toString())
     }
 }

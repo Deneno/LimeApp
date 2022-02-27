@@ -1,6 +1,7 @@
 package com.example.limeapp.screens.tvstream
 
 import android.content.pm.ActivityInfo
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -8,9 +9,13 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.allViews
+import androidx.core.view.get
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.limeapp.R
+import com.example.limeapp.data.TrackSelectionClass
 import com.example.limeapp.databinding.FragmentTvStreamBinding
 import com.example.limeapp.model.Channel
 import com.google.android.exoplayer2.*
@@ -59,64 +64,38 @@ class TvStreamFragment : Fragment() {
         binding.backImage.setOnClickListener{
             requireActivity().findNavController(R.id.nav_host).popBackStack()
         }
-
-
-
-
         binding.qualityImage.setOnClickListener {
             if (binding.trackSelectionCardView.visibility == View.GONE && trackSelector.currentMappedTrackInfo != null){
                 exoPlayer.videoChangeFrameRateStrategy
-
                 binding.trackSelectionCardView.visibility = View.VISIBLE
                 val mappedTrackInfo = Assertions.checkNotNull(trackSelector.currentMappedTrackInfo)
-                val trackSelectionView = binding.trackSelectionView
-                trackSelectionView.setShowDisableOption(true)
+                val trackSelectionView: TrackSelectionClass = binding.trackSelectionView
                 val trackNameProvider: TrackNameProvider = DefaultTrackNameProvider(resources)
                 trackSelectionView.setTrackNameProvider { f: Format ->
-                    if (f.height != Format.NO_VALUE) f.height.toString() else trackNameProvider.getTrackName(f)
+                    if (f.height != Format.NO_VALUE) f.height.toString() + "р" else trackNameProvider.getTrackName(f)
                 }
+                /*for (view in trackSelectionView.allViews) {
+                    view.layoutParams.resolveLayoutDirection(R.layout.item_quality_layout)
+                }*/
                 val trackGroupArray = mappedTrackInfo.getTrackGroups(0)
                 var isDisabledTv = trackSelector.parameters.getRendererDisabled(0)
                 var overridesTv = trackSelector.parameters.getSelectionOverride(0, trackGroupArray)?.let { listOf(it) } ?: emptyList()
-                trackSelectionView.setShowDisableOption(false)
-                trackSelectionView.init(mappedTrackInfo, 0, isDisabledTv, overridesTv, null)
-                { isDisabled, overrides ->
-                    isDisabledTv = isDisabled
-                    overridesTv = overrides
-                    val builder = trackSelector.parameters.buildUpon()
-                    builder.clearSelectionOverrides(0).setRendererDisabled(0,isDisabledTv)
-                    val overridesOnClickListener = overridesTv
-                    if (overridesOnClickListener.isNotEmpty()) {builder.setSelectionOverride(
-                        0,mappedTrackInfo.getTrackGroups(0),overridesOnClickListener[0])}
-                    trackSelector.setParameters(builder)
-                    binding.trackSelectionCardView.visibility = View.GONE
-                }
+                trackSelectionView.init(mappedTrackInfo, 0, isDisabledTv, overridesTv,
+                    { o1: Format, o2: Format -> o2.height-o1.height},
+                    { isDisabled, overrides ->
+                        isDisabledTv = isDisabled
+                        overridesTv = overrides
+                        val builder = trackSelector.parameters.buildUpon()
+                        builder.clearSelectionOverrides(0).setRendererDisabled(0,isDisabledTv)
+                        val overridesOnClickListener = overridesTv
+                        if (overridesOnClickListener.isNotEmpty()) {builder.setSelectionOverride(
+                            0,mappedTrackInfo.getTrackGroups(0),overridesOnClickListener[0])}
+                        trackSelector.setParameters(builder)
+                        binding.trackSelectionCardView.visibility = View.GONE
+                    }
+                )
             }
         }
-
-
-
-
-
-
-        /*binding.qualityImage.setOnClickListener {
-            if (!isShowingTrackSelectionDialog && trackSelector.currentMappedTrackInfo != null){
-                isShowingTrackSelectionDialog = true
-                exoPlayer.videoChangeFrameRateStrategy
-                val trackSelectionDialog = TrackSelectionViewFragment(trackSelector)
-                isShowingTrackSelectionDialog = false
-                trackSelectionDialog.show(requireActivity().supportFragmentManager, null)
-            }
-        }*/
-        /*binding.qualityImage.setOnClickListener {
-            if (!isShowingTrackSelectionDialog && trackSelector.currentMappedTrackInfo != null){
-                isShowingTrackSelectionDialog = true
-                val trackSelectionDialog = TrackSelectionDialog2
-                    .createForTrackSelector(trackSelector){ isShowingTrackSelectionDialog = false }
-                trackSelectionDialog.show(requireActivity().supportFragmentManager, null)
-            }
-        }*/
-
         return binding.root
     }
 

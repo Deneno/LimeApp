@@ -15,6 +15,7 @@
     <color name="greySearch">#FF404247</color>
     <color name="greyText">#FF808185</color>
     <color name="greyTextQuality">#B31A1C23</color>
+    <color name="dividerColor">#D8E1E6</color>
 
     <color name="lightGreyText">#E9EAEF</color>
     <color name="light_blue_600">#FF039BE5</color>

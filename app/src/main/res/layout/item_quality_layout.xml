@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="40dp"
+    android:width="20sp"
+    android:ellipsize="end"
+    android:fontFamily="sans-serif-light"
+    android:gravity="center"
+    android:maxLines="1"
+    android:singleLine="true"
+    android:text="123"
+    android:textAlignment="gravity"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textColor="@color/greyTextQuality"
+    android:textSize="18sp" />
 
 
-        <TextView
-            android:id="@+id/qualityText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="AUTO"
-            android:textColor="@color/greyTextQuality"
-            android:textSize="18sp" />
-
-
-</androidx.cardview.widget.CardView>

@@ -53,8 +53,8 @@ class TvStreamFragment : Fragment() {
             streamChannelName.text = currentChannel.name_ru
             streamChannelTitle.text = currentChannel.current?.title
         }
-        //urlStream = "https://streaming.astrakhan.ru/astrakhan24/index.m3u8"
-        urlStream = currentChannel.url
+        urlStream = "https://streaming.astrakhan.ru/astrakhan24/index.m3u8"
+        //urlStream = currentChannel.url
         trackSelector= DefaultTrackSelector(requireContext())
         initPlayer()
         binding.backImage.setOnClickListener{

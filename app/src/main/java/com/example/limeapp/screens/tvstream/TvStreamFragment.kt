@@ -1,7 +1,6 @@
 package com.example.limeapp.screens.tvstream
 
 import android.content.pm.ActivityInfo
-import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -9,9 +8,6 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.allViews
-import androidx.core.view.get
-import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.limeapp.R
